@@ -12,12 +12,12 @@
         document.writeln( fun1()   === 1 );
         document.writeln( fun1(42) === 1 ); // Functions ignore extra parameters
         //
-        // function fun2()    { return 1; }
-        // function fun2(arg) { return arg; }
+        function fun2()    { return 1; }
+        function fun2(arg) { return arg; }
         //
-        // document.writeln( fun2() !== 1  );
-        // document.writeln( fun2() === undefined );
-        // document.writeln( fun2(42) === 42 );
+        document.writeln( fun2() !== 1  );
+        document.writeln( fun2() === undefined );
+        document.writeln( fun2(42) === 42 );
         //
         // function noReturn()    { 1; }
         // const noReturn2 = () => { 1; };
