@@ -15,17 +15,41 @@
             border-style: solid;
         }
         .fallback {
-            border-color: blue;
+
             border-width: 3px;
         }
-        .progress {
+
+        .fallback.red {
+            border-color: red;
+        }
+        .fallback.blue {
+            border-color: blue;
+        }
+        .fallback.green {
+            border-color: green;
+        }
+        .fallback.yellow {
+            border-color: yellow;
+        }
+
+        .progress.red {
+            background: red;
+        }
+        .progress.blue {
             background: blue;
+        }
+        .progress.green {
+            background: green;
+        }
+        .progress.yellow {
+            background: yellow;
         }
         #dice {
             clear:both;
         }
     </style>
     <script src="oopsie.js"></script>
+    <script src="oopsieTest.js"></script>
 </head>
 
 
@@ -38,6 +62,10 @@
 
 <div id="dice">
     []
+</div>
+
+<div id="currentPlayer">
+
 </div>
 
 <div>

@@ -8,7 +8,34 @@
 //   proceed(stride) // proceed so many places
 //   fallback()      // "oopsie": go back to last start (fallback position)
 //   turn()          // cash in your win, update fallback position for next turn
-// 
+//
+
+function Player (name, color) {
+    let fallbackIndex = 0;
+    let progressIndex = 0;
+
+    const proceed = stride => {
+        progressIndex += stride;
+    };
+
+    const fallback = () => {
+        progressIndex = fallbackIndex;
+    };
+
+    const turn = () => {
+        fallbackIndex = progressIndex;
+    };
+
+    const getFallbackIndex = () => fallbackIndex;
+    const getProgressIndex = () => progressIndex;
+    const getName = () => name;
+    const getColor = () => color;
+
+    return {
+        proceed, fallback, turn, getFallbackIndex, getProgressIndex, getName, getColor
+    }
+}
+
 
 function start() {
     const fields = document.getElementById('fields');
@@ -26,15 +53,21 @@ function dice() {
     let stride = Math.round(1 + Math.random() * 5);
     document.getElementById('dice').innerText = ""+ stride;
     if (stride === 3) {
-        player.fallback();
+        players[currentPlayer].fallback();
     } else {
-        player.proceed(stride);
+        players[currentPlayer].proceed(stride);
     }
     display();
 }
 
 function turn() {
-    player.turn();
+    players[currentPlayer].turn();
+    if (currentPlayer + 1 === players.length) {
+        currentPlayer = 0;
+    } else {
+        currentPlayer++;
+    }
+
     display();
 }
 
@@ -43,10 +76,22 @@ function display() {
         let field = document.getElementById("FIELD-"+i);
         field.setAttribute("CLASS", "field");
     }
-    let fallbackfield = document.getElementById("FIELD-"+ player.getFallbackIndex());
-    fallbackfield.setAttribute("CLASS", "field fallback");
-    let progressfield = document.getElementById("FIELD-"+ player.getProgressIndex());
-    progressfield.setAttribute("CLASS", "field progress");
+
+    players.forEach(player => {
+        let fallbackfield = document.getElementById("FIELD-"+ player.getFallbackIndex());
+        fallbackfield.setAttribute("CLASS", "field fallback " + player.getColor());
+        let progressfield = document.getElementById("FIELD-"+ player.getProgressIndex());
+        progressfield.setAttribute("CLASS", "field progress " + player.getColor());
+    });
+
+    document.getElementById('currentPlayer').innerText = players[currentPlayer].getName()
 }
 
-player = Player("One");
+const players = [
+    Player("One", "blue"),
+    Player("Two", "red"),
+    Player("Three", "green"),
+    Player("Four", "yellow"),
+];
+
+let currentPlayer = 0;
